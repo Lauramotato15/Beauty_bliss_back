@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserCreateRequest;
+use App\Http\Requests\UserUpdateRequest;
 use App\Http\Resources\UserResource;
+use App\Http\Resources\UserCollection;
+use App\Models\User;
 use App\Services\UserService;
+use Illuminate\Container\Attributes\Auth;
 
 class UserController extends Controller
 {
@@ -12,22 +16,20 @@ class UserController extends Controller
     {
         
     }
-
-    public function store(UserCreateRequest $request){
-        $userFind = $request->all(); 
-        $newUser = $this->serviceUser->create($userFind);
-        return new UserResource($newUser);
-    }    
-
+    
     public function index(){
         $users = $this->serviceUser->all();
-        return UserResource::collection($users);
+        return new UserCollection($users);
     }
 
+    public function store(UserCreateRequest $request){
+        $user = $this->serviceUser->createUserWithFile($request);
+        return new UserResource($user);
+    } 
 
-    public function update($id, UserCreateRequest $request){
-        dump($id);
-        $userUpdate = $this->serviceUser->update($id, $request->all());
+    public function update(UserUpdateRequest $request){
+        $authenticated_user = $request->user();
+        $userUpdate = $this->serviceUser->update($authenticated_user->id, $request->all());
         return new UserResource($userUpdate);
     }
 

@@ -2,12 +2,10 @@
 
 namespace App\Http\Requests;
 
-use App\Traits\HasJsonError;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserCreateRequest extends FormRequest
+class UserUpdateRequest extends FormRequest
 {
-    use HasJsonError; 
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -24,8 +22,7 @@ class UserCreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string', 
-            'email' => 'email|required|unique:users', 
+            'name' => 'string', 
             'password' => 'string|min:5',
             'photo' => 'file|image',
         ];

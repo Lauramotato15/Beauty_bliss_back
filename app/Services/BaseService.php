@@ -2,6 +2,7 @@
 namespace App\Services;
 
 use App\AO\IBaseAo;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 abstract class BaseService  implements IBaseAo 
 {
@@ -27,6 +28,9 @@ abstract class BaseService  implements IBaseAo
     public function update($id, array $data)
     {
         $record = $this->repository->find($id);
+        if(!$record){
+            throw new NotFoundHttpException('Recurso no encontrado');
+        }
         $record?->update($data);
         return $record;
     }

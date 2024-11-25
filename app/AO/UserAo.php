@@ -12,5 +12,8 @@ class UserAo extends BaseAo implements IBaseAo
         parent::__construct($userModel);
     }
     
+    public function findByEmail($email){
+        return $this->userModel->where('email', $email)->first();
+    }
 }
 ?> 

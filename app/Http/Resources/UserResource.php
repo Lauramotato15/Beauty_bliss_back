@@ -4,9 +4,10 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-
+use App\Traits\HasResourceResponse;
 class UserResource extends JsonResource
 {
+    use HasResourceResponse;
     /**
      * Transform the resource into an array.
      *
