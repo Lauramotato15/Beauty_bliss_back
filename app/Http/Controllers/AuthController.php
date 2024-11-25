@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
+use App\Http\Resources\AuthLoginResource;
 use App\Services\UserService;
+use Illuminate\Database\Eloquent\Casts\Json;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
@@ -28,9 +31,9 @@ class AuthController extends Controller
     */
 
     public function login(LoginRequest $request){
-        print("hola"); 
         $credentials = $request->only('email', 'password');
-        return $this->serviceUser->login($credentials);
+        $validate = $this->serviceUser->login($credentials);
+        return new AuthLoginResource($validate);
     }
 
     public function logout()
