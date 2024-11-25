@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductCreateRequest;
+use App\Http\Resources\ProductCollection;
 use App\Http\Resources\ProductResource;
 use App\Services\ProductService;
 
@@ -14,16 +15,16 @@ class ProductController extends Controller
         
     }
 
+    public function index(){
+        $products = $this->serviceProduct->all();
+        return new ProductCollection($products);
+    }
+
     public function store(ProductCreateRequest $request){
         $productCreate = $request->all(); 
         $newProduct = $this->serviceProduct->create($productCreate);
         return new ProductResource($newProduct);
     }    
-
-    public function index(){
-        $products = $this->serviceProduct->all();
-        return ProductResource::collection($products);
-    }
 
     public function update($id, ProductCreateRequest $request){
         $productUpdate = $this->serviceProduct->update($id, $request->all());

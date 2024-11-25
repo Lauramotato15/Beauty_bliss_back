@@ -28,6 +28,7 @@ class AuthController extends Controller
     */
 
     public function login(LoginRequest $request){
+        print("hola"); 
         $credentials = $request->only('email', 'password');
         return $this->serviceUser->login($credentials);
     }

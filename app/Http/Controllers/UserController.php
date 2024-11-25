@@ -6,9 +6,7 @@ use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\UserCollection;
-use App\Models\User;
 use App\Services\UserService;
-use Illuminate\Container\Attributes\Auth;
 
 class UserController extends Controller
 {

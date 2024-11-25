@@ -2,11 +2,13 @@
 
 namespace App\Http\Resources;
 
+use App\Traits\HasResourceResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CategoryResource extends JsonResource
 {
+    use HasResourceResponse; 
     /**
      * Transform the resource into an array.
      *

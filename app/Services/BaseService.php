@@ -2,6 +2,7 @@
 namespace App\Services;
 
 use App\AO\IBaseAo;
+use Error;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 abstract class BaseService  implements IBaseAo 
@@ -22,6 +23,10 @@ abstract class BaseService  implements IBaseAo
     }
 
     public function find($id){
+        $userFind = $this->repository->find($id); 
+        if(!$userFind) {
+            throw new Error('Usuario no encontrado'); 
+        }
         return $this->repository->find($id);
     }
 
