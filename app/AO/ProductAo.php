@@ -9,5 +9,9 @@ class ProductAo extends BaseAo implements IBaseAo
     {
         parent::__construct($productModel);
     }
+
+    public function search($condition){
+        return $this->productModel::where($condition)->get();
+    }
 }
 ?>

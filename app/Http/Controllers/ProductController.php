@@ -6,7 +6,6 @@ use App\Http\Requests\ProductCreateRequest;
 use App\Http\Resources\ProductCollection;
 use App\Http\Resources\ProductResource;
 use App\Services\ProductService;
-use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -34,7 +33,7 @@ class ProductController extends Controller
     public function destroy($id){
         $productDelete = $this->serviceProduct->delete($id);
         if($productDelete){
-            return response()->json('Accion realizada con exito',200);
+            return true;
         }
 
         return response()->json(null, 204);   
@@ -45,8 +44,8 @@ class ProductController extends Controller
         return new ProductResource($productFind);
     }
 
-    public function findByName(Request $request){
-        $productFind = $this->serviceProduct->findByName($request->input('name'))->first();
+    public function findByName($name){
+        $productFind = $this->serviceProduct->findByName($name);
         return new ProductResource($productFind);
     }
 }
