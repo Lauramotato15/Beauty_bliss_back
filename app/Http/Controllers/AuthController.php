@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\LoginRequest;
 use App\Http\Resources\AuthLoginResource;
 use App\Services\UserService;
-use Illuminate\Database\Eloquent\Casts\Json;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
@@ -40,10 +40,10 @@ class AuthController extends Controller
     {
         try {
             JWTAuth::invalidate(JWTAuth::getToken());
-            return response()->json(['mensaje' => 'Cierre de sesión exitoso'], 200);
+            return response()->json( ["message " => "Sesión cerrada"], 300);
             
-        } catch (\Tymon\JWTAuth\Exceptions\JWTException $e) {
-            return response()->json(['error' => 'No se pudo cerrar la sesión, intente de nuevo'], 500);
+        } catch (JWTException $e) {
+            return response()->json(['error' => 'No se pudo cerrar la sesion, intente de nuevo'], 500);
         }
     }
 }

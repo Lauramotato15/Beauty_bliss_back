@@ -28,7 +28,7 @@ class UserController extends Controller
     public function update(UserUpdateRequest $request){
         $authenticated_user = $request->user();
         $userUpdate = $this->serviceUser->update($authenticated_user->id, $request->all());
-        return new UserResource($userUpdate);
+        return new UserResource($userUpdate); 
     }
 
     public function destroy($id){

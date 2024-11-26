@@ -36,7 +36,7 @@ abstract class BaseService  implements IBaseAo
         if(!$record){
             throw new NotFoundHttpException('Recurso no encontrado');
         }
-        $record?->update($data);
+        $record?->update($data); 
         return $record;
     }
 
