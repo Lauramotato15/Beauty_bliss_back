@@ -22,6 +22,7 @@ class UserUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'id' => 'numeric',
             'name' => 'string', 
             'password' => 'string|min:5',
             'photo' => 'file',
