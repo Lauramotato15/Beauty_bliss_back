@@ -6,7 +6,7 @@ use App\Http\Requests\ProductCreateRequest;
 use App\Http\Resources\ProductCollection;
 use App\Http\Resources\ProductResource;
 use App\Services\ProductService;
-
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -42,6 +42,11 @@ class ProductController extends Controller
 
     public function show($id){
         $productFind = $this->serviceProduct->find($id);
+        return new ProductResource($productFind);
+    }
+
+    public function findByName(Request $request){
+        $productFind = $this->serviceProduct->findByName($request->input('name'))->first();
         return new ProductResource($productFind);
     }
 }

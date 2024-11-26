@@ -34,5 +34,9 @@ abstract class BaseAo implements IBaseAo
     public function delete($id){
         return $this->model->where("id", $id)->delete();
     }
+
+    public function search($condition){
+        return $this->model->where($condition)->get();
+    }
 }
 ?> 

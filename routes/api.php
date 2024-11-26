@@ -16,11 +16,12 @@ Route::middleware(['auth:api'])->group(function (){
     
     Route::prefix('user')->controller(UserController::class)->group(function(){
         Route::get('/', 'index')->name('allUser');
-        Route::put('update/me', 'update')->name('update');
+        Route::post('update/me', 'update')->name('update');
         Route::get('find/{id}', 'show');
         Route::delete('delete/{id}', [UserController::class, 'destroy'])->name('delete'); 
     }); 
 
+    Route::get('product/find-by-name', [ProductController::class, 'findByName']);
     Route::apiResource('category', CategoryController::class); 
     Route::apiResource('product', ProductController::class);
     Route::apiResource('sale', SalesController::class);
