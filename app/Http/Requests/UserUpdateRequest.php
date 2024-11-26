@@ -24,7 +24,7 @@ class UserUpdateRequest extends FormRequest
         return [
             'name' => 'string', 
             'password' => 'string|min:5',
-            'photo' => 'file|image',
+            'photo' => 'file',
         ];
     }
 }
