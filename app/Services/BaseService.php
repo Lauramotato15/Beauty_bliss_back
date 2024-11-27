@@ -1,13 +1,13 @@
 <?php
 namespace App\Services;
 
-use App\AO\IBaseAo;
+use App\Repositories\IBaseRepository;
 use Error;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-abstract class BaseService  implements IBaseAo 
+abstract class BaseService  implements IBaseRepository 
 {
-    public function __construct(private IBaseAo $repository)
+    public function __construct(private IBaseRepository $repository)
     {
 
     }

@@ -1,9 +1,9 @@
 <?php
-namespace App\AO;
+namespace App\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
 
-abstract class BaseAo implements IBaseAo
+abstract class BaseRepository implements IBaseRepository
 {
     public function __construct(private Model $model)
     {

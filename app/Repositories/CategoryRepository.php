@@ -1,9 +1,9 @@
 <?php
-namespace App\AO;
+namespace App\Repositories;
 
 use App\Models\Category;
 
-class CategoryAo extends BaseAo implements IBaseAo
+class CategoryRepository extends BaseRepository implements IBaseRepository
 {
     public function __construct(private Category $categoryModel)
     {

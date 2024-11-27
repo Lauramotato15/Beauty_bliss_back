@@ -1,11 +1,8 @@
 <?php
-namespace App\AO;
-
-use App\AO\BaseAo;
-use App\AO\IBaseAo;
+namespace App\Repositories;
 use App\Models\User;
 
-class UserAo extends BaseAo implements IBaseAo
+class UserRepository extends BaseRepository implements IBaseRepository
 {
     public function __construct(private User $userModel)
     {

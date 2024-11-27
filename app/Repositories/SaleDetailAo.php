@@ -1,9 +1,9 @@
 <?php
-namespace App\AO;
+namespace App\Repositories;
 
 use App\Models\SalesDetails;
 
-class SaleDetailAo extends BaseAo implements IBaseAo 
+class SaleDetailRepository extends BaseRepository implements IBaseRepository 
 {
     public function __construct(private SalesDetails $saleDetail)
     {

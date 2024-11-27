@@ -1,11 +1,11 @@
 <?php
 namespace App\Services;
 
-use App\AO\CategoryAo;
+use App\Repositories\CategoryRepository;
 
 class CategoryService extends BaseService implements IBaseService 
 {
-    public function __construct(private CategoryAo $categoryRepository)
+    public function __construct(private CategoryRepository $categoryRepository)
     {
         parent::__construct($categoryRepository);
     }

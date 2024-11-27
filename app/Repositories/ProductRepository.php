@@ -1,9 +1,9 @@
 <?php
-namespace App\AO;
+namespace App\Repositories;
 
 use App\Models\Product;
 
-class ProductAo extends BaseAo implements IBaseAo 
+class ProductRepository extends BaseRepository implements IBaseRepository
 {
     public function __construct(private Product $productModel)
     {

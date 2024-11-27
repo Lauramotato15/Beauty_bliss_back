@@ -1,23 +1,23 @@
 <?php
 namespace App\Services;
 
-use App\AO\UserAo;
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Resources\UserResource;
+use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class UserService extends BaseService implements IBaseService{
-   public function __construct(private UserAo $userRepository)
+   public function __construct(private UserRepository $userRepository)
    {
       parent::__construct($userRepository);
    }
 
+
    /**
      * Metodo para crear un usuario con una imagen
-     * @author laura Motato 
-     * @param \App\Http\Requests\CreateUserRequest $request
-     * @return mixed
+     * @param \App\Http\Requests\UserCreateRequest $request
+     * @return User
    */
 
    public function createUserWithFile(UserCreateRequest $request){

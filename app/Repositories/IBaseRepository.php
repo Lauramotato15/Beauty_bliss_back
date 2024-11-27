@@ -1,6 +1,6 @@
 <?php
-namespace App\AO; 
-interface IBaseAo 
+namespace App\Repositories; 
+interface IBaseRepository
 {
   public function create(array $data);   
   public function all(); 

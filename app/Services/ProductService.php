@@ -1,11 +1,10 @@
 <?php
 namespace App\Services;
-
-use App\AO\ProductAo;
+use App\Repositories\ProductRepository;
 
 class ProductService extends BaseService implements IBaseService 
 {
-    public function __construct(private ProductAo $productRepository)
+    public function __construct(private ProductRepository $productRepository)
     {
         parent::__construct($productRepository);
     }
