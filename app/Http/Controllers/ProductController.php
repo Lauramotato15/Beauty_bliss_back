@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductCreateRequest;
+use App\Http\Requests\ProductUpdateRequest;
 use App\Http\Resources\ProductCollection;
 use App\Http\Resources\ProductResource;
 use App\Services\ProductService;
@@ -25,7 +26,7 @@ class ProductController extends Controller
         return new ProductResource($newProduct);
     }    
 
-    public function update($id, ProductCreateRequest $request){
+    public function update($id, ProductUpdateRequest $request){
         $productUpdate = $this->serviceProduct->update($id, $request->all());
         return new ProductResource($productUpdate); 
     }
@@ -33,7 +34,7 @@ class ProductController extends Controller
     public function destroy($id){
         $productDelete = $this->serviceProduct->delete($id);
         if($productDelete){
-            return true;
+            return response()->json('Accion realizada con exito',204);
         }
 
         return response()->json(null, 204);   

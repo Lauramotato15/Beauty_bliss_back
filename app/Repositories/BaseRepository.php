@@ -27,7 +27,7 @@ abstract class BaseRepository implements IBaseRepository
     public function update($id, array $data)
     {
         $record = $this->model->find($id);
-        $record?->update($data);
+        $record->update($data);
         return $record;
     }
 

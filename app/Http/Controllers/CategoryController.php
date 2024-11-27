@@ -31,10 +31,10 @@ class CategoryController extends Controller
     public function destroy($id){
         $categoryDelete = $this->serviceCategory->delete($id);
         if($categoryDelete){
-            return response()->json('Accion realizada con exito',200);
+            return response()->json('Accion realizada con exito',204);
         }
 
-        return response()->json(null, 204);   
+        return response()->json(null, 500);   
     }
 
     public function show($id){

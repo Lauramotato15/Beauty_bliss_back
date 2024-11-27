@@ -7,6 +7,15 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 abstract class BaseService  implements IBaseRepository 
 {
+    /**
+    * Constructor para inyectar el repositorio en la clase.
+    *
+    * Este constructor recibe una instancia de un repositorio que implementa la interfaz
+    * `IBaseRepository` y la inyecta en la propiedad `$repository`, permitiendo a la clase
+    * interactuar con la lógica de acceso a datos.
+    *
+    * @param \App\Repositories\IBaseRepository
+    */
     public function __construct(private IBaseRepository $repository)
     {
 
@@ -36,12 +45,16 @@ abstract class BaseService  implements IBaseRepository
         if(!$record){
             throw new NotFoundHttpException('Recurso no encontrado');
         }
-        $record?->update($data); 
-        return $record;
+        $resp = $this->repository->update($id, $data); 
+        return $resp;
     }
 
     public function delete($id){
-        return $this->repository->delete($id);
+        $resp = $this->repository->delete($id);
+        if(!$resp){
+            throw new NotFoundHttpException('Recurso no encontrado');
+        }
+        return $resp;
     }
 } 
 ?> 
