@@ -2,6 +2,7 @@
 namespace App\Repositories;
 
 use App\Models\Product;
+use Illuminate\Support\Facades\Log;
 
 class ProductRepository extends BaseRepository implements IBaseRepository
 {
@@ -11,6 +12,7 @@ class ProductRepository extends BaseRepository implements IBaseRepository
     }
 
     public function search($condition){
+        Log::info($this->productModel::where($condition)->toSql());
         return $this->productModel::where($condition)->get();
     }
 }
