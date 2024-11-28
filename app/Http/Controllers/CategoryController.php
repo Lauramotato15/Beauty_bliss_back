@@ -43,8 +43,8 @@ class CategoryController extends Controller
 
     public function destroy($id){
         try {
-            $this->serviceCategory->delete($id);
-            return response()->json('Acción realizada con éxito', 204);
+            $resp = $this->serviceCategory->delete($id);
+            return $resp; 
 
         } catch (NotFoundHttpException $e) {
             return response()->json(['error' => $e->getMessage()], 404);

@@ -43,8 +43,8 @@ class StockController extends Controller
 
     public function destroy($id){
         try {
-            $this->serviceStock->delete($id);
-            return response()->json('Acción realizada con éxito', 204);
+            $resp = $this->serviceStock->delete($id);
+            return $resp; 
 
         } catch (NotFoundHttpException $e) {
             return response()->json(['error' => $e->getMessage()], 404);
