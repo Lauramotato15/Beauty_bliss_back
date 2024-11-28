@@ -11,7 +11,7 @@ class ProductService extends BaseService implements IBaseService
     }
 
     public function findByName($name){
-        $product = $this->productRepository->search(['name' => $name])->first();
+        $product = $this->productRepository->search([['name', "LIKE", "%$name%"]])->first();
         if(!$product)throw new NotFoundHttpException('Recurso no encontrado');
         
         return $product ;

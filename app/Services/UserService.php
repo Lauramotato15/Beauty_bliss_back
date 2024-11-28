@@ -30,9 +30,9 @@ class UserService extends BaseService implements IBaseService
       $data = $request->all();
 
       if ($file) {
-          $fileName = time() . '_' . $file->getClientOriginalName();
-          $file->move(public_path('uploads'), $fileName);
-          $data['photo'] = $fileName;
+        $fileName = time(). '_' .$file->getClientOriginalName();
+        $file->storeAs('public/uploads', $fileName);
+        $data['photo'] = $fileName;
       }
       $createdUser = $this->userRepository->create($data);
       return $createdUser;
@@ -54,14 +54,14 @@ class UserService extends BaseService implements IBaseService
   public function login($credentials)
   {
       if (!($token = JWTAuth::attempt($credentials))) {
-          return [];
+        return [];
       }
 
       $user = Auth::user();
 
       return [
-          'token' => $token,
-          'user' => new UserResource($user),
+        'token' => $token,
+        'user' => new UserResource($user),
       ];
   }
 
@@ -76,9 +76,9 @@ class UserService extends BaseService implements IBaseService
   public function logout()
   {
     try {
-        JWTAuth::invalidate(JWTAuth::getToken());
-        return response()->json(['message ' => 'Sesion cerrada'], 204);
-        
+      JWTAuth::invalidate(JWTAuth::getToken());
+      return true; 
+      
     } catch (JWTException $e) {
         return response()->json(['error' => 'No se pudo cerrar la sesion, intente de nuevo'], 500);
     }
