@@ -28,10 +28,10 @@ class UserService extends BaseService implements IBaseService
   {
       $file = $request->file('photo');
       $data = $request->all();
-
       if ($file) {
         $fileName = time(). '_' .$file->getClientOriginalName();
-        $file->storeAs('public/uploads', $fileName);
+        $file->move(storage_path('app/public/uploads'), $fileName);
+
         $data['photo'] = $fileName;
       }
       $createdUser = $this->userRepository->create($data);
