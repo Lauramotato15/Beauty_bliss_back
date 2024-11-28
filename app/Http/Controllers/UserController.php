@@ -33,8 +33,7 @@ class UserController extends Controller
             return new UserResource($userUpdate); 
 
         } catch (NotFoundHttpException $e) {
-            return response()->json(['error' => $e->getMessage()], 404);
-
+            return response()->json(['error' => $e->getMessage()], 404); 
         }
     }
 

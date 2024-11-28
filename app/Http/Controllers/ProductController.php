@@ -48,6 +48,10 @@ class ProductController extends Controller
         return new ProductResource($productFind);
     }
 
+    public function findByBrand($brand){
+        $productsFind = $this->serviceProduct->findByBrand($brand); 
+    }
+
     public function destroy($id){
         try {
             $resp = $this->serviceProduct->delete($id);
