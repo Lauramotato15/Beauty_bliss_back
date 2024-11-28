@@ -16,6 +16,13 @@ class ProductService extends BaseService implements IBaseService
         
         return $product ;
     }
+
+    public function findBybrand($brand){
+        $product = $this->productRepository->search(['mar' => $brand])->first();
+        if(!$product)throw new NotFoundHttpException('Recurso no encontrado');
+        
+        return $product ;
+    }
 } 
 
 ?>

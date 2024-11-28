@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StockCreateRequest;
 use App\Http\Resources\StockResource;
 use App\Services\StockService;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class StockController extends Controller
 {
@@ -25,21 +26,29 @@ class StockController extends Controller
     }
 
     public function update($id, StockCreateRequest $request){
-        $stockUpdate = $this->serviceStock->update($id, $request->all());
-        return new StockResource($stockUpdate);
-    }
+        try {
+            $stockUpdate = $this->serviceStock->update($id, $request->all());
+            return new StockResource($stockUpdate);
 
-    public function destroy($id){
-        $stockDelete = $this->serviceStock->delete($id);
-        if($stockDelete){
-            return response()->json('Accion realizada con exito',200);
+        } catch (NotFoundHttpException $e) {
+            return response()->json(['error' => $e->getMessage()], 404);
+
         }
-
-        return response()->json(null, 204);   
     }
-
+    
     public function show($id){
         $stockFind = $this->serviceStock->find($id);
         return new StockResource($stockFind);
+    }
+
+    public function destroy($id){
+        try {
+            $this->serviceStock->delete($id);
+            return response()->json('Acción realizada con éxito', 204);
+
+        } catch (NotFoundHttpException $e) {
+            return response()->json(['error' => $e->getMessage()], 404);
+
+        } 
     }
 }

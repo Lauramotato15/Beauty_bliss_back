@@ -5,11 +5,18 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CategoryCreateRequest;
 use App\Http\Resources\CategoryResource;
 use App\Services\CategoryService;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 class CategoryController extends Controller
 {
     public function __construct(private CategoryService $serviceCategory)
     {
         
+    }
+
+    public function index(){
+        $categorys = $this->serviceCategory->all();
+        return CategoryResource::collection($categorys);
     }
 
     public function store(CategoryCreateRequest $request){
@@ -18,27 +25,30 @@ class CategoryController extends Controller
         return new CategoryResource($newProduct);
     }    
 
-    public function index(){
-        $categorys = $this->serviceCategory->all();
-        return CategoryResource::collection($categorys);
-    }
-
     public function update($id, CategoryCreateRequest $request){
-        $categoryUpdate = $this->serviceCategory->update($id, $request->all());
-        return new CategoryResource($categoryUpdate); 
-    }
+        try {
+            $categoryUpdate = $this->serviceCategory->update($id, $request->all());
+            return new CategoryResource($categoryUpdate); 
 
-    public function destroy($id){
-        $categoryDelete = $this->serviceCategory->delete($id);
-        if($categoryDelete){
-            return response()->json('Accion realizada con exito',204);
-        }
+        } catch (NotFoundHttpException $e) {
+            return response()->json(['error' => $e->getMessage()], 404);
 
-        return response()->json(null, 500);   
+        } 
     }
 
     public function show($id){
         $categoryFind = $this->serviceCategory->find($id);
         return new CategoryResource($categoryFind);
+    }
+
+    public function destroy($id){
+        try {
+            $this->serviceCategory->delete($id);
+            return response()->json('Acción realizada con éxito', 204);
+
+        } catch (NotFoundHttpException $e) {
+            return response()->json(['error' => $e->getMessage()], 404);
+
+        }   
     }
 }

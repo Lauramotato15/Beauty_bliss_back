@@ -7,6 +7,7 @@ use App\Http\Requests\UserUpdateRequest;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\UserCollection;
 use App\Services\UserService;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class UserController extends Controller
 {
@@ -26,23 +27,31 @@ class UserController extends Controller
     } 
 
     public function update(UserUpdateRequest $request){
-        $authenticated_user = $request->user();
-        $userUpdate = $this->serviceUser->update($authenticated_user->id, $request->all());
-        return new UserResource($userUpdate); 
-    }
+        try {
+            $authenticated_user = $request->user();
+            $userUpdate = $this->serviceUser->update($authenticated_user->id, $request->all());
+            return new UserResource($userUpdate); 
 
-    public function destroy($id){
-        $userDelete = $this->serviceUser->delete($id);
-        if($userDelete){
-            return response()->json('Accion realizada con exito',200);
+        } catch (NotFoundHttpException $e) {
+            return response()->json(['error' => $e->getMessage()], 404);
+
         }
-
-        return response()->json(null, 204);   
     }
 
     public function show($id){
         $userFind = $this->serviceUser->find($id);
         return new UserResource($userFind);
     }
+
+    public function destroy($id){
+        try {
+            $resp = $this->serviceUser->delete($id);
+            return $resp; 
+
+        } catch (NotFoundHttpException $e) {
+            return response()->json(['error' => $e->getMessage()], 404);
+        } 
+    }
+
 }
  
