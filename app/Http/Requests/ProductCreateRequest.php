@@ -27,6 +27,8 @@ class ProductCreateRequest extends FormRequest
             'name' => 'required|string',
             'price' => 'required|numeric',
             'id_category' => 'required|numeric|exists:categories,id',
+            'description' => 'required|string', 
+            'brand' => 'required',
         ];
     }
 }
