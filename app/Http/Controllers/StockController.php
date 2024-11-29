@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StockCreateRequest;
+use App\Http\Resources\StockCollection;
 use App\Http\Resources\StockResource;
 use App\Services\StockService;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -14,16 +15,16 @@ class StockController extends Controller
         
     }
 
+    public function index(){
+        $stocks = $this->serviceStock->all();
+        return new StockCollection($stocks);
+    }
+    
     public function store(StockCreateRequest $request){
         $stockCreate = $request->all(); 
         $newStock = $this->serviceStock->create($stockCreate);
         return new StockResource($newStock);
     }    
-
-    public function index(){
-        $stocks = $this->serviceStock->all();
-        return StockResource::collection($stocks);
-    }
 
     public function update($id, StockCreateRequest $request){
         try {

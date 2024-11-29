@@ -7,7 +7,7 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 use App\Traits\HasResourceResponse;
 class UserCollection extends ResourceCollection
 {
-    use HasResourceResponse;
+    use HasResourceResponse; 
 
     /**
      * Transform the resource collection into an array.

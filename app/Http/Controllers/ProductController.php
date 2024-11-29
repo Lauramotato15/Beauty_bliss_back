@@ -6,7 +6,6 @@ use App\Http\Requests\ProductCreateRequest;
 use App\Http\Requests\ProductUpdateRequest;
 use App\Http\Resources\ProductCollection;
 use App\Http\Resources\ProductResource;
-use App\Models\Product;
 use App\Services\ProductService;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -24,7 +23,8 @@ class ProductController extends Controller
 
     public function store(ProductCreateRequest $request){
         $newProduct = $this->serviceProduct->createWithFile($request);
-        return new ProductResource($newProduct);
+        $rees = new ProductResource($newProduct);
+        return $rees;
     } 
 
     public function update($id, ProductUpdateRequest $request){

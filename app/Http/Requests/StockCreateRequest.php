@@ -25,6 +25,7 @@ class StockCreateRequest extends FormRequest
     {
         return [
             'quantity' => 'required|numeric', 
+            'id_product' => 'required'
         ];
     }
 }
