@@ -1,7 +1,6 @@
 <?php
 namespace App\Services;
 
-use App\Http\Requests\UserCreateRequest;
 use App\Repositories\IBaseRepository;
 use Error;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -22,37 +21,14 @@ abstract class BaseService  implements IBaseRepository
 
     }
 
-    public function all()
-    {
-        return $this->repository->all();
-    }
-
     public function create(array $data)
     {
         return $this->repository->create($data);
     }
 
-    /**
-    * Metodo para crear un usuario con una imagen
-    * Se valida que la imagen haya llegado y se le asigna un nombre único
-    * y se define la carpeta en donde se almacenara localmente
-    * 
-    * @param \App\Http\Requests\UserCreateRequest $request, la imagen es opcional
-    * 
-    * @return User
-    */
-    public function createWithFile($request)
+    public function all()
     {
-      $file = $request->file('photo');
-      $data = $request->all();
-      if ($file) {
-        $fileName = time(). '_' .$file->getClientOriginalName();
-        $file->move(storage_path('app/public/uploads'), $fileName);
-  
-        $data['photo'] = $fileName;
-      }
-      $user = $this->repository->create($data);
-      return $user;
+        return $this->repository->all();
     }
 
     public function find($id){
@@ -71,27 +47,6 @@ abstract class BaseService  implements IBaseRepository
         }
         $resp = $this->repository->update($id, $data); 
         return $resp;
-    }
-
-    public function updateWithFile($id, $request)
-    {
-       $record = $this->repository->find($id);
-       if(!$record){
-            throw new NotFoundHttpException('Recurso no encontrado');
-        }
-        
-      $file = $request->file('photo');
-      $data = $request->all();
-      if ($file) {
-        $fileName = time(). '_' .$file->getClientOriginalName();
-        $file->move(storage_path('app/public/uploads'), $fileName);
-  
-        $data['photo'] = $fileName;
-      }
-
-      $resp = $this->repository->update($id, $data);
-      
-      return $resp; 
     }
 
     public function delete($id){

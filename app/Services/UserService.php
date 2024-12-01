@@ -2,7 +2,6 @@
 namespace App\Services;
 
 use App\Http\Requests\UserCreateRequest;
-use App\Http\Requests\UserUpdateRequest;
 use App\Http\Resources\UserResource;
 use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Auth;
@@ -17,6 +16,29 @@ class UserService extends BaseService implements IBaseService
   }
 
   /**
+   * Metodo para crear un usuario con una imagen
+   * Se valida que la imagen haya llegado y se le asigna un nombre único
+   * y se define la carpeta en donde se almacenara localmente
+   * 
+   * @param \App\Http\Requests\UserCreateRequest $request, la imagen es opcional
+   * 
+   * @return User
+   */
+  public function createUserWithFile(UserCreateRequest $request)
+  {
+      $file = $request->file('photo');
+      $data = $request->all();
+      if ($file) {
+        $fileName = time(). '_' .$file->getClientOriginalName();
+        $file->move(storage_path('app/public/uploads'), $fileName);
+
+        $data['photo'] = $fileName;
+      }
+      $createdUser = $this->userRepository->create($data);
+      return $createdUser;
+  }
+
+  /**
    * Método para validar las credenciales del usuario, generar un token JWT e iniciar sesión.
    *
    * Este método recibe las credenciales del usuario (nombre de usuario y contraseña),
@@ -28,7 +50,7 @@ class UserService extends BaseService implements IBaseService
    * 
    * @return \Illuminate\Http\JsonResponse Retorna una respuesta JSON con el token y los detalles del usuario.
    *     Si la autenticación falla, retorna un array vacío.
-  */
+   */
   public function login($credentials)
   {
       if (!($token = JWTAuth::attempt($credentials))) {

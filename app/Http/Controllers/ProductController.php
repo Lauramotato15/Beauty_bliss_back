@@ -22,10 +22,10 @@ class ProductController extends Controller
     }
 
     public function store(ProductCreateRequest $request){
-        $newProduct = $this->serviceProduct->createWithFile($request);
-        $rees = new ProductResource($newProduct);
-        return $rees;
-    } 
+        $productCreate = $request->all(); 
+        $newProduct = $this->serviceProduct->create($productCreate);
+        return new ProductResource($newProduct);
+    }    
 
     public function update($id, ProductUpdateRequest $request){
         try {

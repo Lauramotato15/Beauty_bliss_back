@@ -22,14 +22,14 @@ class UserController extends Controller
     }
 
     public function store(UserCreateRequest $request){
-        $user = $this->serviceUser->createWithFile($request);
+        $user = $this->serviceUser->createUserWithFile($request);
         return new UserResource($user);
     } 
 
     public function update(UserUpdateRequest $request){
         try {
             $authenticated_user = $request->user();
-            $userUpdate = $this->serviceUser-> updateWithFile($authenticated_user->id, $request);
+            $userUpdate = $this->serviceUser->update($authenticated_user->id, $request->all());
             return new UserResource($userUpdate); 
 
         } catch (NotFoundHttpException $e) {
