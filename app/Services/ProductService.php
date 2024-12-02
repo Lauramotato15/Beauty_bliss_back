@@ -17,11 +17,26 @@ class ProductService extends BaseService implements IBaseService
         return $product ;
     }
 
-    public function findBybrand($brand){
-        $product = $this->productRepository->search(['marca' => $brand]);
-        if(!$product)throw new NotFoundHttpException('Recurso no encontrado');
-        
-        return $product ;
+    public function createProductWithFile($request)
+    {
+      $file = $request->file('photo');
+      $data = $request->all();
+      if ($file) {
+        $fileName = time(). '_' .$file->getClientOriginalName();
+        $file->move(storage_path('app/public/uploads'), $fileName);
+  
+        $data['photo'] = $fileName;
+      }
+
+      $stock = $request->input('stock');
+  
+      $create = $this->productRepository->create($data);
+  
+      if ($stock) {
+        $create->stocks()->create(['cantidad' => $stock]);
+      }
+  
+      return $create;
     }
 } 
 

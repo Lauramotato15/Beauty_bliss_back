@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CategoryCreateRequest;
+use App\Http\Resources\CategoryCollection;
 use App\Http\Resources\CategoryResource;
 use App\Services\CategoryService;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -16,7 +17,7 @@ class CategoryController extends Controller
 
     public function index(){
         $categorys = $this->serviceCategory->all();
-        return CategoryResource::collection($categorys);
+        return new CategoryCollection($categorys);
     }
 
     public function store(CategoryCreateRequest $request){

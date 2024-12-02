@@ -22,8 +22,7 @@ class ProductController extends Controller
     }
 
     public function store(ProductCreateRequest $request){
-        $productCreate = $request->all(); 
-        $newProduct = $this->serviceProduct->create($productCreate);
+        $newProduct = $this->serviceProduct->createProductWithFile($request);
         return new ProductResource($newProduct);
     }    
 
@@ -46,10 +45,6 @@ class ProductController extends Controller
     public function findByName($name){
         $productFind = $this->serviceProduct->findByName($name);
         return new ProductResource($productFind);
-    }
-
-    public function findByBrand($brand){
-        $productsFind = $this->serviceProduct->findByBrand($brand); 
     }
 
     public function destroy($id){
