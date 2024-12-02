@@ -23,8 +23,8 @@ class ProductResource extends JsonResource
             'description' => $this->description,
             'brand' => $this->brand, 
             'photo' => $this->photo,
-            'stock' => new StockResource($this->stocks),
             'category' => new CategoryResource($this->category),
+            'stock' => StockResource::collection($this->stocks),
         ]; 
     }
 }

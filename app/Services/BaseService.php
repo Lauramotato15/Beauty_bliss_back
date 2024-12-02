@@ -3,6 +3,7 @@ namespace App\Services;
 
 use App\Repositories\IBaseRepository;
 use Error;
+use Illuminate\Database\Eloquent\Collection;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 abstract class BaseService  implements IBaseRepository 
@@ -26,7 +27,7 @@ abstract class BaseService  implements IBaseRepository
         return $this->repository->create($data);
     }
 
-    public function all()
+    public function all(): Collection
     {
         return $this->repository->all();
     }
@@ -34,7 +35,7 @@ abstract class BaseService  implements IBaseRepository
     public function find($id){
         $userFind = $this->repository->find($id); 
         if(!$userFind) {
-            throw new Error('Usuario no encontrado'); 
+            throw new NotFoundHttpException('Recurso no encontrado');
         }
         return $this->repository->find($id);
     }

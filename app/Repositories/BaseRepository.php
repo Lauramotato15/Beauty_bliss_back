@@ -1,6 +1,7 @@
 <?php
 namespace App\Repositories;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 abstract class BaseRepository implements IBaseRepository
@@ -15,7 +16,7 @@ abstract class BaseRepository implements IBaseRepository
         return $this->model->create($data);
     }
 
-    public function all()
+    public function all(): Collection
     {
         return $this->model->all();
     }

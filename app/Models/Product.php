@@ -21,14 +21,14 @@ class Product extends Model
     ]; 
 
     public function category(){
-        return $this->belongsTo(Category::class,'id_category','id');
+        return $this->belongsTo(Category::class,'id_category');
     }
 
     public function stocks()
     {
         return $this->hasMany(Stock::class, 'id_product', 'id');
     }
-    
+
     public function sales(){
         return $this->belongsToMany(Sales::class);
     }

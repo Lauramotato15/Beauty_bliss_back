@@ -27,6 +27,7 @@ class ProductController extends Controller
         return new ProductResource($newProduct);
     }    
 
+    
     public function update($id, ProductUpdateRequest $request){
         try {
             $productUpdate = $this->serviceProduct->update($id, $request->all());
@@ -34,7 +35,6 @@ class ProductController extends Controller
 
         } catch (NotFoundHttpException $e) {
             return response()->json(['error' => $e->getMessage()], 404);
-
         } 
     }
     
