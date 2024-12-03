@@ -33,7 +33,7 @@ class ProductService extends BaseService implements IBaseService
       $create = $this->productRepository->create($data);
   
       if ($stock) {
-        $create->stocks()->create(['cantidad' => $stock]);
+        $create->stocks()->create(['quantity' => $stock]);
       }
   
       return $create;
