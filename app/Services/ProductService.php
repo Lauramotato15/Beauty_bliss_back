@@ -1,5 +1,7 @@
 <?php
 namespace App\Services;
+
+use App\Models\Stock;
 use App\Repositories\ProductRepository;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -28,10 +30,10 @@ class ProductService extends BaseService implements IBaseService
         $data['photo'] = $fileName;
       }
 
-      $stock = $request->input('stock');
+      $stock = $request->input('quantity');
   
       $create = $this->productRepository->create($data);
-  
+
       if ($stock) {
         $create->stocks()->create(['quantity' => $stock]);
       }
