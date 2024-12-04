@@ -1,7 +1,5 @@
 <?php
 namespace App\Services;
-
-use App\Http\Requests\UserCreateRequest;
 use App\Http\Resources\UserResource;
 use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Auth;

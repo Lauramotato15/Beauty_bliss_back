@@ -50,7 +50,11 @@ class ProductController extends Controller
     public function destroy($id){
         try {
             $resp = $this->serviceProduct->delete($id);
-            return $resp; 
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Recurso eliminado exitosamente.',
+                'data' => $resp,
+            ], 200);
 
         } catch (NotFoundHttpException $e) {
             return response()->json(['error' => $e->getMessage()], 404);

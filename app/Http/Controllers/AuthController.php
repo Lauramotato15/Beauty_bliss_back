@@ -23,6 +23,10 @@ class AuthController extends Controller
     public function logout()
     {
         $resp = $this->serviceUser->logout();
-        return $resp; 
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Tu sesión ha sido cerrada con éxito.',
+            'data' => $resp,
+        ], 200);
     }
 }
