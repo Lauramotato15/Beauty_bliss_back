@@ -16,7 +16,8 @@ class ProductRepository extends BaseRepository implements IBaseRepository
         return $this->productModel::where($condition)->get();
     }
 
-    public function searchByBrand($condition){
+    public function findByCategory($condition){
+        Log::info($this->productModel::where($condition)->toSql());
         return $this->productModel::where($condition)->get();
     }
 }

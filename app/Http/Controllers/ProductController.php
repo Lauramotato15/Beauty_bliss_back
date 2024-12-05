@@ -47,7 +47,8 @@ class ProductController extends Controller
     }
 
     Public function findByCategory($category){
-        
+        $products = $this->serviceProduct->findByCategory($category); 
+        return new ProductCollection($products); 
     } 
 
     public function destroy($id){

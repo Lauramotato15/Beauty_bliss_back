@@ -23,7 +23,7 @@ Route::middleware(['auth:api'])->group(function (){
 
     Route::get('sale/id-user', [SalesController::class, 'findIdUser']); 
     Route::get('product/find-by-name/{name}', [ProductController::class, 'findByName']);
-    Route::get('product/find-by-category/{category}', [ProductController::class, 'findByName']);
+    Route::get('product/find-by-category/{category}', [ProductController::class, 'findByCategory']);
     
     Route::apiResource('category', CategoryController::class); 
     Route::apiResource('product', ProductController::class);
