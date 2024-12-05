@@ -42,6 +42,11 @@ class SalesController extends Controller
         return new SalesResource($stockFind);
     }
 
+    public function findIdUser(){
+        $sale = $this->serviceSales->findByIdUser();
+        return new SalesCollection($sale);
+    }
+
     public function destroy($id){
         try {
             $resp = $this->serviceSales->delete($id);

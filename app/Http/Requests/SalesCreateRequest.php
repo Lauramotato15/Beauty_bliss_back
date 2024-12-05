@@ -24,7 +24,6 @@ class SalesCreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id_user' => 'required|numeric',
             'total_value' =>'required|numeric',
             'products' => 'array | required | min:1',
             'products.*.id_product' => 'required|exists:products,id', 

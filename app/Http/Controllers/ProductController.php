@@ -25,7 +25,6 @@ class ProductController extends Controller
         $newProduct = $this->serviceProduct->createProductWithFile($request);
         return new ProductResource($newProduct);
     }    
-
     
     public function update($id, ProductUpdateRequest $request){
         try {
@@ -46,6 +45,10 @@ class ProductController extends Controller
         $productFind = $this->serviceProduct->findByName($name);
         return new ProductResource($productFind);
     }
+
+    Public function findByCategory($category){
+        
+    } 
 
     public function destroy($id){
         try {

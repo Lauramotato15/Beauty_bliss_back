@@ -21,7 +21,10 @@ Route::middleware(['auth:api'])->group(function (){
         Route::delete('delete/{id}', [UserController::class, 'destroy'])->name('delete'); 
     }); 
 
+    Route::get('sale/id-user', [SalesController::class, 'findIdUser']); 
     Route::get('product/find-by-name/{name}', [ProductController::class, 'findByName']);
+    Route::get('product/find-by-category/{category}', [ProductController::class, 'findByName']);
+    
     Route::apiResource('category', CategoryController::class); 
     Route::apiResource('product', ProductController::class);
     Route::apiResource('sale', SalesController::class);

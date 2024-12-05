@@ -9,5 +9,9 @@ class SaleRepository extends BaseRepository implements IBaseRepository
     {
         parent::__construct($saleModel);
     }
+
+    public function findByIdUser($userId){
+        return $this->saleModel::where('id_user', $userId)->get();
+    }
 }
 ?>
