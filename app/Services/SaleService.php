@@ -11,4 +11,11 @@ class SaleService extends BaseService implements IBaseService
     {
         parent::__construct($salesRepository);
     }
+
+    public function createSaleWithDetail(array $saleInfo, array $saleDetail){
+        $sale = $this->create($saleInfo);
+        $sale->details()->createMany($saleDetail);
+        return $sale;
+
+    }
 }

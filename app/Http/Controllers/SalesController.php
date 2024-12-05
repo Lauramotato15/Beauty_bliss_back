@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Http\Requests\SalesCreateRequest;
+use App\Http\Resources\SalesCollection;
 use App\Http\Resources\SalesResource;
 use App\Services\SaleService;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -17,12 +18,11 @@ class SalesController extends Controller
 
     public function index(){
         $stocks = $this->serviceSales->all();
-        return SalesResource::collection($stocks);
+        return new SalesCollection($stocks);
     }
 
     public function store(SalesCreateRequest $request){
-        $stockCreate = $request->all(); 
-        $newStock = $this->serviceSales->create($stockCreate);
+        $newStock = $this->serviceSales->createSaleWithDetail($request->except('products'), $request->input('products'));
         return new SalesResource($newStock);
     }    
 

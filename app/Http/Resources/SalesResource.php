@@ -16,9 +16,12 @@ class SalesResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $this->loadMissing('details');
+
         return [
             'id' => $this->id,
             'user' => new UserResource($this->user),
+            'products' => new SaleDetailCollection($this->whenLoaded('details')),
             'total_value' => $this->total_value,
         ];
     }

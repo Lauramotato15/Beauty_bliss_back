@@ -16,12 +16,12 @@ class SaleDetailResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $this->loadMissing('product');
         return [
             'id' => $this->id,
             'quantity' => $this->quantity, 
             "total_value" => $this->total_value, 
-            "id_product" => new ProductResource($this->product),
-            "id_sale" => new SalesResource($this->sale), 
+            "id_product" => new ProductResource($this->whenLoaded('product')),
         ]; 
     }
 }

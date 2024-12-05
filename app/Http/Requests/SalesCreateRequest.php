@@ -25,7 +25,11 @@ class SalesCreateRequest extends FormRequest
     {
         return [
             'id_user' => 'required|numeric',
-            'total_value' =>'required|numeric'
+            'total_value' =>'required|numeric',
+            'products' => 'array | required | min:1',
+            'products.*.id_product' => 'required|exists:products,id', 
+            'products.*.quantity' => 'required|numeric', 
+            "products.*.total_value" => 'required|numeric',
         ];
     }
 }
