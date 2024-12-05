@@ -23,6 +23,7 @@ class SalesResource extends JsonResource
             'user' => new UserResource($this->user),
             'products' => new SaleDetailCollection($this->whenLoaded('details')),
             'total_value' => $this->total_value,
+            'created_at' => $this->created_at,
         ];
     }
 }

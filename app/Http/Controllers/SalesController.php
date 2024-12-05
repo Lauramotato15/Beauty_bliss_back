@@ -7,6 +7,7 @@ use App\Http\Requests\SalesCreateRequest;
 use App\Http\Resources\SalesCollection;
 use App\Http\Resources\SalesResource;
 use App\Services\SaleService;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class SalesController extends Controller
@@ -43,7 +44,8 @@ class SalesController extends Controller
     }
 
     public function findIdUser(){
-        $sale = $this->serviceSales->findByIdUser();
+        $userId = Auth::user()->id; 
+        $sale = $this->serviceSales->findByIdUser($userId);
         return new SalesCollection($sale);
     }
 

@@ -20,8 +20,7 @@ class SaleService extends BaseService implements IBaseService
         return $sale;
     }
 
-    public function findByIdUser(){
-        $userId = FacadesAuth::user()->id;
+    public function findByIdUser($userId){
         if(!$userId) throw new NotFoundHttpException('Recurso no encontrado');
         
         return $this->salesRepository->findByIdUser($userId);

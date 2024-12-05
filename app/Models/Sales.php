@@ -12,6 +12,7 @@ class Sales extends Model
     protected $fillable = [
         'id_user',
         'total_value',
+        'created_at', 
     ]; 
 
     public function user(){
